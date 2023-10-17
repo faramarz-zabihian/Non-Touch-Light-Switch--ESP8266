@@ -1,0 +1,59 @@
+/*
+
+template<typename T>
+struct Callback;
+
+template<typename Ret, typename... Params>
+struct Callback<Ret(Params...)> {
+    template<typename... Args>
+    static Ret callback(Args... args) { return func(args...); }
+
+    static std::function<Ret(Params...)> func;
+};
+
+// Initialize the static member.
+template<typename Ret, typename... Params>
+std::function<Ret(Params...)> Callback<Ret(Params...)>::func;
+*/
+/*Callback<int(coap_context_t *ctx, coap_event_t event, struct coap_session_t *session)>
+::func = std::bind(&CoapClient::default_event_handler, this, std::placeholders::_1, std::placeholders::_2,
+                   std::placeholders::_3);
+
+int (*c_event_handler)(coap_context_t *ctx, coap_event_t event, struct coap_session_t *session) =
+static_cast<decltype(c_event_handler)>(Callback<int(coap_context_t *ctx, coap_event_t event,
+                                                    struct coap_session_t *session)>::callback);
+
+coap_register_event_handler(ctx, c_event_handler);
+
+Callback<void(coap_context_t *, coap_session_t *, coap_pdu_t *, coap_nack_reason_t, const coap_tid_t)>
+::func = std::bind(&CoapClient::nack_handler, this, std::placeholders::_1, std::placeholders::_2,
+                   std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
+
+void (*c_nack_handler)(coap_context_t *, coap_session_t *, coap_pdu_t *, coap_nack_reason_t, const coap_tid_t) =
+static_cast<decltype(c_nack_handler)>(Callback<void(coap_context_t *, coap_session_t *, coap_pdu_t *,
+                                                    coap_nack_reason_t, const coap_tid_t)>::callback);
+
+coap_register_nack_handler(ctx, c_nack_handler);
+Callback<void(struct coap_context_t *ctx,
+              coap_session_t *session,
+              coap_pdu_t *sent,
+              coap_pdu_t *received,
+              const coap_tid_t id)
+>::func = std::bind(&CoapClient::response_handler, this,
+                    std::placeholders::_1, std::placeholders::_2,
+                    std::placeholders::_3, std::placeholders::_4,
+                    std::placeholders::_5);
+
+void (*c_response_handler)(
+        struct coap_context_t *ctx,
+        coap_session_t *session,
+        coap_pdu_t *sent,
+        coap_pdu_t *received,
+        const coap_tid_t id) = static_cast<decltype(c_response_handler)>(Callback<void(
+        struct coap_context_t *ctx,
+        coap_session_t *session,
+        coap_pdu_t *sent,
+        coap_pdu_t *received,
+        const coap_tid_t id)>::callback);
+
+coap_register_response_handler(ctx, c_response_handler);*/

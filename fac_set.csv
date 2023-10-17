@@ -1,0 +1,9 @@
+# Sample csv file
+key,type,encoding,value
+setup,namespace,,
+model,data,string,IR_SW_BL10
+serial,data,string,10000
+firmware,data,string,RTOS3.4
+application,data,string,V1
+aeskey,data,string,0123456789123456
+identity,data,string,@asp432

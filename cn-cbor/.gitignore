@@ -1,0 +1,32 @@
+cntest
+new.out
+*.o
+build
+Testing/Temporary
+*.pc
+*.bat
+
+# Emacs temp files
+*~
+.#*
+*#
+
+# Visual Stdio build directories
+Debug
+Release
+v16
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.VC.db
+*.VC.opendb
+/.vscode/
+
+# Output of CMake
+CMakeCache.txt
+CMakeFiles
+Makefile
+*.cmake
+install_manifest.txt
+*.tcl

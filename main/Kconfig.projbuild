@@ -1,0 +1,61 @@
+menu "Hello Wifi Configuration"
+    config EXAMPLE_CONNECT_IPV6
+        bool "Obtain IPv6 address"
+        default n
+        select LWIP_IPV6
+        help
+            By default, examples will wait until IPv4 and IPv6 local link addresses are obtained.
+            Disable this option if the network does not support IPv6.
+            Choose the preferred IPv6 address type if the connection code should wait until other than
+            the local link address gets assigned.
+
+    if EXAMPLE_CONNECT_IPV6
+        choice EXAMPLE_CONNECT_PREFERRED_IPV6
+            prompt "Preferred IPv6 Type"
+            default EXAMPLE_CONNECT_IPV6_PREF_LOCAL_LINK
+            help
+                Select which kind of IPv6 address the connect logic waits for.
+
+            config EXAMPLE_CONNECT_IPV6_PREF_LOCAL_LINK
+                bool "Local Link Address"
+                help
+                    Blocks until Local link address assigned.
+
+            config EXAMPLE_CONNECT_IPV6_PREF_GLOBAL
+                bool "Global Address"
+                select LWIP_IPV6_AUTOCONFIG
+                help
+                    Blocks until Global address assigned.
+        endchoice
+    endif
+
+
+    menu "Wifi Data delivery conf."
+
+    choice ESP_SMARTCONFIG_TYPE
+    	prompt "Smartconfig Type"
+    	default ESP_TOUCH
+    	help
+    		Set protocol type of SmartConfig.
+
+    		Start SmartConfig method according to the selected type when user select "ESPTouch", "AirKiss",  "ESPTouch and AirKiss" or "ESPTouch V2" type.
+
+    config ESP_TOUCH
+    	bool "ESPTouch"
+    config AIRKISS
+    	bool "AirKiss"
+    config ESP_TOUCH-AIRKISS
+    	bool "ESPTouch and AirKiss"
+    config ESP_TOUCH_V2
+    	bool "ESPTouch-V2"
+    endchoice
+
+    config ESP_SMARTCONFIG_TYPE
+    	int
+    	default 0 if ESP_TOUCH
+    	default 1 if AIRKISS
+    	default 2 if ESP_TOUCH-AIRKISS
+    	default 3 if ESP_TOUCH_V2
+    endmenu
+
+endmenu

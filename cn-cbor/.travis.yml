@@ -1,0 +1,27 @@
+language: c
+compiler:
+  - gcc
+
+env:
+  - OPTIONS=-DCN_CBOR_USE_CONTEXT=OFF
+  - OPTIONS=-DCN_CBOR_USE_CONTEXT=ON
+    COVERALLS="-DCN_CBOR_COVERALLS_SEND=ON"
+  - OPTIONS=-DCN_CBOR_NO_FLOATS=ON
+  - OPTIONS=-DCN_CBOR_ALIGN_READS=ON
+
+addons:
+  apt:
+    sources:
+      - george-edison55-precise-backports
+    packages:
+      - cmake
+      - cmake-data
+
+script:
+  - cmake --version
+  - mkdir build
+  - cd build && cmake $OPTIONS $COVERALLS .. && make all test
+
+after_success:
+  - make coveralls
+
